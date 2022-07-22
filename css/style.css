@@ -84,6 +84,13 @@ section {
     font-weight: bold;
 }
 
+.card-img-left {
+    height: 150px;
+}
+
+.banner {
+    height: 150px;
+}
 
 .contenido-empresa {
     padding: 10px;
@@ -121,14 +128,24 @@ p {
 .contenido-producto {
     padding: 10px;
     text-align: left;
+    position: relative;
 }
 
 .precio-producto {
     text-align: right;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+}
+
+.contenidoDescripcion {
+    height: 100px;
+    overflow-y: auto;
 }
 
 .div-producto {
     cursor: pointer;
+    height: 165px;
     margin-top: 10px;
     justify-content: space-between;
 }

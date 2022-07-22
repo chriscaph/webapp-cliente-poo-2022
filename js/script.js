@@ -1,375 +1,256 @@
+var usuarios = [
+    {
+        codigo: 'U-1',
+        nombre: 'Juan',
+        usuario: 'juan123',
+        password: '1234',
+        tipo: 'A'
+    },
+    {
+        codigo: 'U-2',
+        nombre: 'Pedro',
+        usuario: 'pedro123',
+        password: '1234',
+        tipo: 'A'
+    },
+    {
+        codigo: 'U-3',
+        nombre: 'Carlos',
+        usuario: 'carlos123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: true,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-4',
+        nombre: 'María',
+        usuario: 'maria123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: false,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-5',
+        nombre: 'Alberto',
+        usuario: 'alberto123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: null,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-6',
+        nombre: 'Alex',
+        usuario: 'alex123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-7',
+        nombre: 'Matusalen',
+        usuario: 'matusalen123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-8',
+        nombre: 'Francisco',
+        usuario: 'francisco123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-9',
+        nombre: 'Paola',
+        usuario: 'paola123',
+        password: '1234',
+        tipo: 'C'
+    }
+];
+
 var categorias = [
     {
-        imagen: 'ejemploImagen 1.png',
-        nombre: 'Categoría 1',
+        codigo: 'C-1',
+        nombre: 'Farmacias',
+        imagen: 'farmacia.png',
+        descripcion: 'Lorem ipsum.',
         empresas: [
             {
-                codigo: 1,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
+                codigo: 'E-1',
+                nombre: 'Farmacias Kielsa',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-0011',
+                calificacion: 5,
+                direccion: 'Estamos ubicados en el boulevard Morazán.',
+                correo: 'kielsahonduras@kielsa.com',
+                logo: 'kielsa-logo.png',
+                banner: 'kielsa-banner.png',
                 productos: [
                     {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-1',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
                     },
                     {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-2',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
                     }
                 ]
             },
             {
-                codigo: 2,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
+                codigo: 'E-2',
+                nombre: 'Farmacias del ahorro',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-2020',
+                calificacion: 4,
+                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
+                correo: 'farmaciasdelahorro@ahorro.com',
+                logo: 'ahorro-logo.png',
+                banner: 'ahorro-banner.png',
                 productos: [
                     {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-3',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
                     },
                     {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-4',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
                     }
                 ]
             }
         ]
     },
     {
-        imagen: 'ejemploImagen 1.png',
-        nombre: 'Categoría 2',
+        codigo: 'C-2',
+        nombre: 'Farmacias',
+        imagen: 'farmacia.png',
+        descripcion: 'Lorem ipsum.',
         empresas: [
             {
-                codigo: 1,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
+                codigo: 'E-3',
+                nombre: 'Farmacias Kielsa',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-0011',
+                calificacion: 5,
+                direccion: 'Estamos ubicados en el boulevard Morazán.',
+                correo: 'kielsahonduras@kielsa.com',
+                logo: 'kielsa-logo.png',
+                banner: 'kielsa-banner.png',
                 productos: [
                     {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-5',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
                     },
                     {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-6',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
                     }
                 ]
             },
             {
-                codigo: 2,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
+                codigo: 'E-4',
+                nombre: 'Farmacias del ahorro',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-2020',
+                calificacion: 4,
+                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
+                correo: 'farmaciasdelahorro@ahorro.com',
+                logo: 'ahorro-logo.png',
+                banner: 'ahorro-banner.png',
                 productos: [
                     {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-7',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
                     },
                     {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        imagen: 'ejemploImagen 1.png',
-        nombre: 'Categoría 3',
-        empresas: [
-            {
-                codigo: 1,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            },
-            {
-                codigo: 2,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        imagen: 'ejemploImagen 1.png',
-        nombre: 'Categoría 4',
-        empresas: [
-            {
-                codigo: 1,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            },
-            {
-                codigo: 2,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        imagen: 'ejemploImagen 1.png',
-        nombre: 'Categoría 5',
-        empresas: [
-            {
-                codigo: 1,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    }
-                ]
-            },
-            {
-                codigo: 2,
-                banner: 'ejemploBanner 1.png',
-                imagen: 'ejemploImagen 1.png',
-                nombre: 'Empresa 1',
-                descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                calificacion: 3,
-                productos: [
-                    {
-                        codigo: 1,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 1',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 2,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 2',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
-                    },
-                    {
-                        codigo: 3,
-                        imagen: 'ejemploImagen 1.png',
-                        nombre: 'producto 3',
-                        descripcion: 'lorem ipsum dolor sit amet consectetur.',
-                        precio: 99.99,
-                        cantidad: 10
+                        codigo: 'P-8',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
                     }
                 ]
             }
         ]
     }
 ];
+
+var ordenes = [
+    {
+        codigo: 'O-1',
+        nombre: 'Orden 1',
+        estado: 'disponible',
+        cliente: {
+            nombre: 'Alex',
+            telefono: '9199-1111',
+            correo: 'alex@unah.hn'
+        },
+        envio: {
+            productos: [
+                {
+                    codigo: 'P-1',
+                    nombre: 'Panadol ultra 104 tabletas',
+                    precio: 314.95,
+                    cantidad: 3
+                },
+                {
+                    codigo: 'P-2',
+                    nombre: 'Sudagrip antigripal',
+                    precio: 14.98,
+                    cantidad: 2
+                }
+            ],
+            direccion: 'lorem ipsum.',
+            empresa: 'Farmacias Kielsa',
+            subtotal: 974.81,
+            isv: 146.22,
+            comisionMotorista: 97.48,
+            comisionAdministrador: 48.74,
+            total: 292.44,
+            estado: null,
+            coordenadas: null,
+            motorista: null,
+
+        }
+    }
+];
+
+localStorage.setItem('usuarios', JSON.stringify(usuarios));
+localStorage.setItem('categorias', JSON.stringify(categorias));
+localStorage.setItem('ordenes', JSON.stringify(ordenes));
 
 var sectionCategorias = document.getElementById('section-categorias');
 var sectionEmpresas = document.getElementById('section-empresas');
@@ -392,7 +273,7 @@ function generarCategorias() {
         sectionCategorias.innerHTML +=
         `<div class="col-12 col-sm-6 col-md-4">
             <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas(${indice});">
-                <img class="card-img-left example-card-img-responsive" src="img/${categoria.imagen}" />
+                <img class="card-img-left example-card-img-responsive" src="img/categorias/${categoria.imagen}" />
                 <h5 class="h5-categoria">${categoria.nombre}</h5>
             </div>
         </div>`;
@@ -416,12 +297,12 @@ function generarEmpresas(indiceCategoria) {
         sectionEmpresas.innerHTML +=
         `<div class="col-12 col-sm-6">
             <div class="card borde-verde div-empresa" onclick="generarProductos(${indice});">
-                <img class="card-img" src="img/${empresa.banner}" alt="banner">
+                <img class="card-img banner" src="img/empresas/${empresa.banner}" alt="banner">
                 <div class="card-img-overlay">
                     <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
                 </div>
                 <div class="card flex-row content-empresa">
-                    <img class="card-img-left example-card-img-responsive" src="img/${empresa.imagen}" />
+                    <img class="card-img-left example-card-img-responsive" src="img/empresas/${empresa.logo}" />
                     <div class="contenido-empresa">
                         <h6>Descripción:</h6>
                         <p>${empresa.descripcion}</p>
@@ -448,10 +329,12 @@ function generarProductos(indiceEmpresa) {
         sectionProductos.innerHTML +=
         `<div class="col-12 col-md-6 col-lg-4">
             <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto(${indice});">
-                <img class="card-img-left example-card-img-responsive" src="img/${producto.imagen}" />
+                <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
-                    <h6>${producto.nombre}</h6>
-                    <p>${producto.descripcion}</p>
+                    <h6 class="mb-2">${producto.nombre}</h6>
+                    <div class="contenidoDescripcion">
+                        <p>${producto.descripcion}</p>
+                    </div>
                     <h6 class="precio-producto">L. ${producto.precio}</h6>
                 </div>
             </div>
@@ -487,6 +370,7 @@ function agregarAlCarrito() {
     let spinCantidad = document.getElementById('cantidadProductos');
     carrito.push(
         {
+            codigo: productoActual.codigo,
             imagen: productoActual.imagen,
             producto: productoActual.nombre,
             cantidad: spinCantidad.value,
@@ -502,7 +386,10 @@ function agregarAlCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-function obtenerLocalStorage(){
+function obtenerLocalStorage() {
+    usuarios = JSON.parse(localStorage.getItem('usuarios'));
+    categorias = JSON.parse(localStorage.getItem('categorias'));
+    ordenes = JSON.parse(localStorage.getItem('categorias'));
     if (localStorage.getItem('carrito') != null){
         carrito = JSON.parse(localStorage.getItem('carrito'));
         contador = carrito.length;
@@ -525,7 +412,7 @@ function abrirCarrito() {
             subtotal += producto.precio * producto.cantidad;
             productosCarrito +=
             `<div class="card flex-row borde-verde div-producto mb-1">
-                <img class="card-img-left example-card-img-responsive" src="img/${producto.imagen}" />
+                <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6>${producto.producto}</h6>
                     <p>${producto.descripcion}</p>
@@ -567,6 +454,10 @@ function comprar() {
 
     modalBodyCliente.innerHTML =
     `<h5 class="titulo-modal my-3">Finalizar compra</h5>
+    <label class="form-control mt-2 border-0">Celular:</label>
+    <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="9999-9999" required>
+    <label class="form-control mt-2 border-0">Correo:</label>
+    <input class="form-control borde-naranja" type="text" id="text-correo" placeholder="9999-9999" required>
     <label class="form-control mt-2 border-0">Escribe tu dirección:</label>
     <textarea id="textDireccion" class="textarea-dirección form-control borde-naranja" rows="4" cols="50" required></textarea>
     <label class="form-control mt-2 border-0">Selecciona tu ubicación:</label>
@@ -599,13 +490,15 @@ function comprar() {
 }
 
 function validarFormulario() {
+    let txtcelular = document.getElementById('text-celular').value;
+    let txtcorreo = document.getElementById('text-correo').value;
     let txtdireccion = document.getElementById('textDireccion').value;
     let txtnumero = document.getElementById('text-numero').value;
     let txtnombre = document.getElementById('text-nombre').value;
     let txtexpiracion = document.getElementById('text-expiracion').value;
     let txtcvc = document.getElementById('text-cvc').value;
 
-    if (txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
+    if (txtcelular == '' || txtcorreo == '' || txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
         alert("Por favor, llene todos los campos.");
     } else {
         finalizarCompra();
@@ -642,7 +535,6 @@ function irAtras() {
 }
 
 function limpiarLocalStorage() {
-    localStorage.clear();
     carrito.length = 0;
     contador = carrito.length
     divContador.innerHTML = contador;
