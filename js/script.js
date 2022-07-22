@@ -79,132 +79,72 @@ var categorias = [
         nombre: 'Farmacias',
         imagen: 'farmacia.png',
         descripcion: 'Lorem ipsum.',
-        empresas: [
-            {
-                codigo: 'E-1',
-                nombre: 'Farmacias Kielsa',
-                descripcion: 'Ubicados en cualquier punto estratégico del país.',
-                telefono: '2772-0011',
-                calificacion: 5,
-                direccion: 'Estamos ubicados en el boulevard Morazán.',
-                correo: 'kielsahonduras@kielsa.com',
-                logo: 'kielsa-logo.png',
-                banner: 'kielsa-banner.png',
-                productos: [
-                    {
-                        codigo: 'P-1',
-                        nombre: 'Panadol ultra 104 tabletas',
-                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-                        cantiddad: 25,
-                        precio: 314.95,
-                        imagen: 'panadol-ultra.jpg'
-                    },
-                    {
-                        codigo: 'P-2',
-                        nombre: 'Sudagrip antigripal',
-                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-                        cantiddad: 100,
-                        precio: 14.98,
-                        imagen: 'sudagrip-antigripal.png'
-                    }
-                ]
-            },
-            {
-                codigo: 'E-2',
-                nombre: 'Farmacias del ahorro',
-                descripcion: 'Ubicados en cualquier punto estratégico del país.',
-                telefono: '2772-2020',
-                calificacion: 4,
-                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
-                correo: 'farmaciasdelahorro@ahorro.com',
-                logo: 'ahorro-logo.png',
-                banner: 'ahorro-banner.png',
-                productos: [
-                    {
-                        codigo: 'P-3',
-                        nombre: 'Panadol ultra 104 tabletas',
-                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-                        cantiddad: 25,
-                        precio: 314.95,
-                        imagen: 'panadol-ultra.jpg'
-                    },
-                    {
-                        codigo: 'P-4',
-                        nombre: 'Sudagrip antigripal',
-                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-                        cantiddad: 100,
-                        precio: 14.98,
-                        imagen: 'sudagrip-antigripal.png'
-                    }
-                ]
-            }
-        ]
+    }          
+];
+
+var empresas = [
+    {
+        codigo: 'E-1',
+        nombre: 'Farmacias Kielsa',
+        descripcion: 'Ubicados en cualquier punto estratégico del país.',
+        telefono: '2772-0011',
+        calificacion: 5,
+        direccion: 'Estamos ubicados en el boulevard Morazán.',
+        correo: 'kielsahonduras@kielsa.com',
+        logo: 'kielsa-logo.png',
+        banner: 'kielsa-banner.png',
+        codigoCategoria: 'C-1'
+    }, 
+    {
+        codigo: 'E-2',
+        nombre: 'Farmacias del ahorro',
+        descripcion: 'Ubicados en cualquier punto estratégico del país.',
+        telefono: '2772-2020',
+        calificacion: 4,
+        direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
+        correo: 'farmaciasdelahorro@ahorro.com',
+        logo: 'ahorro-logo.png',
+        banner: 'ahorro-banner.png',
+        codigoCategoria: 'C-1'
+    }
+];
+
+var productos = [
+    {
+        codigo: 'P-1',
+        nombre: 'Panadol ultra 104 tabletas',
+        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+        cantidad: 25,
+        precio: 314.95,
+        imagen: 'panadol-ultra.jpg',
+        codigoEmpresa: 'E-1'
     },
     {
-        codigo: 'C-2',
-        nombre: 'Farmacias',
-        imagen: 'farmacia.png',
-        descripcion: 'Lorem ipsum.',
-        empresas: [
-            {
-                codigo: 'E-3',
-                nombre: 'Farmacias Kielsa',
-                descripcion: 'Ubicados en cualquier punto estratégico del país.',
-                telefono: '2772-0011',
-                calificacion: 5,
-                direccion: 'Estamos ubicados en el boulevard Morazán.',
-                correo: 'kielsahonduras@kielsa.com',
-                logo: 'kielsa-logo.png',
-                banner: 'kielsa-banner.png',
-                productos: [
-                    {
-                        codigo: 'P-5',
-                        nombre: 'Panadol ultra 104 tabletas',
-                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-                        cantiddad: 25,
-                        precio: 314.95,
-                        imagen: 'panadol-ultra.jpg'
-                    },
-                    {
-                        codigo: 'P-6',
-                        nombre: 'Sudagrip antigripal',
-                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-                        cantiddad: 100,
-                        precio: 14.98,
-                        imagen: 'sudagrip-antigripal.png'
-                    }
-                ]
-            },
-            {
-                codigo: 'E-4',
-                nombre: 'Farmacias del ahorro',
-                descripcion: 'Ubicados en cualquier punto estratégico del país.',
-                telefono: '2772-2020',
-                calificacion: 4,
-                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
-                correo: 'farmaciasdelahorro@ahorro.com',
-                logo: 'ahorro-logo.png',
-                banner: 'ahorro-banner.png',
-                productos: [
-                    {
-                        codigo: 'P-7',
-                        nombre: 'Panadol ultra 104 tabletas',
-                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-                        cantiddad: 25,
-                        precio: 314.95,
-                        imagen: 'panadol-ultra.jpg'
-                    },
-                    {
-                        codigo: 'P-8',
-                        nombre: 'Sudagrip antigripal',
-                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-                        cantiddad: 100,
-                        precio: 14.98,
-                        imagen: 'sudagrip-antigripal.png'
-                    }
-                ]
-            }
-        ]
+        codigo: 'P-2',
+        nombre: 'Sudagrip antigripal',
+        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+        cantidad: 100,
+        precio: 14.98,
+        imagen: 'sudagrip-antigripal.png',
+        codigoEmpresa: 'E-1'
+    },
+    {
+        codigo: 'P-3',
+        nombre: 'Panadol ultra 104 tabletas',
+        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+        cantidad: 25,
+        precio: 314.95,
+        imagen: 'panadol-ultra.jpg',
+        codigoEmpresa: 'E-2'
+    },
+    {
+        codigo: 'P-4',
+        nombre: 'Sudagrip antigripal',
+        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+        cantidad: 100,
+        precio: 14.98,
+        imagen: 'sudagrip-antigripal.png',
+        codigoEmpresa: 'E-2'
     }
 ];
 
@@ -248,10 +188,6 @@ var ordenes = [
     }
 ];
 
-localStorage.setItem('usuarios', JSON.stringify(usuarios));
-localStorage.setItem('categorias', JSON.stringify(categorias));
-localStorage.setItem('ordenes', JSON.stringify(ordenes));
-
 var sectionCategorias = document.getElementById('section-categorias');
 var sectionEmpresas = document.getElementById('section-empresas');
 var sectionProductos = document.getElementById('section-productos');
@@ -272,7 +208,7 @@ function generarCategorias() {
     categorias.forEach( (categoria, indice) => {
         sectionCategorias.innerHTML +=
         `<div class="col-12 col-sm-6 col-md-4">
-            <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas(${indice});">
+            <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas('${categoria.codigo}');">
                 <img class="card-img-left example-card-img-responsive" src="img/categorias/${categoria.imagen}" />
                 <h5 class="h5-categoria">${categoria.nombre}</h5>
             </div>
@@ -280,11 +216,12 @@ function generarCategorias() {
     });
 }
 
-function generarEmpresas(indiceCategoria) {
-    categoriaActual = categorias[indiceCategoria];
+function generarEmpresas(codigoCategoria) {
+    let filtro = empresas.filter(empresa => empresa.codigoCategoria == codigoCategoria);
+    categoriaActual = categorias.filter(categoria => categoria.codigo == codigoCategoria)[0];
     sectionCategorias.style.display = 'none';
     sectionEmpresas.innerHTML = `<div class="titulo-section borde-azul">${categoriaActual.nombre}</div>`;
-    categoriaActual.empresas.forEach( (empresa, indice) => {
+    filtro.forEach( (empresa, indice) => {
 
         estrellas = '';
         for (let i = 0; i < empresa.calificacion; i++) {
@@ -296,7 +233,7 @@ function generarEmpresas(indiceCategoria) {
 
         sectionEmpresas.innerHTML +=
         `<div class="col-12 col-sm-6">
-            <div class="card borde-verde div-empresa" onclick="generarProductos(${indice});">
+            <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa.codigo}');">
                 <img class="card-img banner" src="img/empresas/${empresa.banner}" alt="banner">
                 <div class="card-img-overlay">
                     <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
@@ -321,14 +258,15 @@ function generarEmpresas(indiceCategoria) {
     sectionEmpresas.style.display = 'flex';
 }
 
-function generarProductos(indiceEmpresa) {
-    empresaActual = categoriaActual.empresas[indiceEmpresa];
+function generarProductos(codigoEmpresa) {
+    let filtro = productos.filter(producto => producto.codigoEmpresa == codigoEmpresa);
+    empresaActual = empresas.filter(empresa => empresa.codigo == codigoEmpresa)[0];
     sectionEmpresas.style.display = 'none';
     sectionProductos.innerHTML = `<div class="titulo-section borde-azul">${empresaActual.nombre}</div>`;
-    empresaActual.productos.forEach( (producto, indice) => {
+    filtro.forEach( (producto, indice) => {
         sectionProductos.innerHTML +=
         `<div class="col-12 col-md-6 col-lg-4">
-            <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto(${indice});">
+            <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto('${producto.codigo}');">
                 <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6 class="mb-2">${producto.nombre}</h6>
@@ -344,8 +282,8 @@ function generarProductos(indiceEmpresa) {
     sectionProductos.style.display = 'flex';
 }
 
-function seleccionarProducto(indiceProducto) {
-    productoActual = empresaActual.productos[indiceProducto];
+function seleccionarProducto(codigoProducto) {
+    productoActual = productos.filter(producto => producto.codigo == codigoProducto)[0];
     modalBodyCliente.innerHTML =
     `<h5 class="titulo-modal mb-5 mt-3">Cantidad de productos:</h5>
     <input id="cantidadProductos" class="borde-naranja mb-5" type="number" min="1" max="${productoActual.cantidad}" value="1">
@@ -387,9 +325,6 @@ function agregarAlCarrito() {
 }
 
 function obtenerLocalStorage() {
-    usuarios = JSON.parse(localStorage.getItem('usuarios'));
-    categorias = JSON.parse(localStorage.getItem('categorias'));
-    ordenes = JSON.parse(localStorage.getItem('categorias'));
     if (localStorage.getItem('carrito') != null){
         carrito = JSON.parse(localStorage.getItem('carrito'));
         contador = carrito.length;
@@ -535,6 +470,7 @@ function irAtras() {
 }
 
 function limpiarLocalStorage() {
+    localStorage.clear();
     carrito.length = 0;
     contador = carrito.length
     divContador.innerHTML = contador;
