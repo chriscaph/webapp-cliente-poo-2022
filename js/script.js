@@ -234,7 +234,8 @@ function generarEmpresas(codigoCategoria) {
         sectionEmpresas.innerHTML +=
         `<div class="col-12 col-sm-6">
             <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa.codigo}');">
-                <img class="card-img banner" src="img/empresas/${empresa.banner}" alt="banner">
+                <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/empresas/${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
+                </div>
                 <div class="card-img-overlay">
                     <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
                 </div>
@@ -378,7 +379,7 @@ function abrirCarrito() {
         </div>
         <div class="botones-modal mb-3">
             <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
-            <button class="boton boton-verde" onclick="comprar();">Comprar</button>
+            <button class="boton boton-verde" onclick="comprar(); cargarMapa();">Comprar</button>
         </div>`;
     }
     abrirModal();
@@ -390,18 +391,20 @@ function comprar() {
     modalBodyCliente.innerHTML =
     `<h5 class="titulo-modal my-3">Finalizar compra</h5>
     <label class="form-control mt-2 border-0">Celular:</label>
-    <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="9999-9999" required>
+    <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="xxxx-xxxx" required>
     <label class="form-control mt-2 border-0">Correo:</label>
-    <input class="form-control borde-naranja" type="text" id="text-correo" placeholder="9999-9999" required>
+    <input class="form-control borde-naranja" type="text" id="text-correo" placeholder="xxxx@xxxx.com" required>
     <label class="form-control mt-2 border-0">Escribe tu dirección:</label>
     <textarea id="textDireccion" class="textarea-dirección form-control borde-naranja" rows="4" cols="50" required></textarea>
     <label class="form-control mt-2 border-0">Selecciona tu ubicación:</label>
-    <img src="img/mapa 1.png" class="borde-naranja" alt="mapa">
+    <div id="mapa" style="width: 100%; height: 200px;"></div>
+    <input type="hidden" id="longitud" value="-87.17472108959961">
+    <input type="hidden" id="latitud" value= "14.07425613883513">
     <label class="form-control mt-2 border-0">Información de tarjeta:</label>
     <div class="informacion-tarjeta borde-naranja row pb-3">
         <div class="col-12">
             <label>Número:</label>
-            <input class="form-control borde-naranja" type="text" id="text-numero" placeholder="9999-9999-9999" required>
+            <input class="form-control borde-naranja" type="text" id="text-numero" placeholder="xxxx-xxxx-xxxx-xxxx" required>
         </div>
         <div class="col-12">
             <label>Nombre:</label>
@@ -413,7 +416,7 @@ function comprar() {
         </div>
         <div class="col-6">
             <label>CVC:</label>
-            <input class="form-control borde-naranja" type="text" id="text-cvc" placeholder="999" required>
+            <input class="form-control borde-naranja" type="text" id="text-cvc" placeholder="xxx" required>
         </div>
     </div>
     <div class="botones-modal my-3">
@@ -432,6 +435,8 @@ function validarFormulario() {
     let txtnombre = document.getElementById('text-nombre').value;
     let txtexpiracion = document.getElementById('text-expiracion').value;
     let txtcvc = document.getElementById('text-cvc').value;
+    let longitud = document.getElementById('longitud').value;
+    let latitud = document.getElementById('latitud').value;
 
     if (txtcelular == '' || txtcorreo == '' || txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
         alert("Por favor, llene todos los campos.");
