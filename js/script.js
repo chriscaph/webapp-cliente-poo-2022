@@ -351,7 +351,9 @@ function abrirCarrito() {
                 <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6>${producto.producto}</h6>
-                    <p>${producto.descripcion}</p>
+                    <div class="contenidoDescripcion">
+                        <p>${producto.descripcion}</p>
+                    </div>
                     <h6 class="precio-producto">L. ${producto.precio} x ${producto.cantidad}</h6>
                 </div>
             </div>`;
@@ -386,8 +388,6 @@ function abrirCarrito() {
 }
 
 function comprar() {
-    cerrarModal();
-
     modalBodyCliente.innerHTML =
     `<h5 class="titulo-modal my-3">Finalizar compra</h5>
     <label class="form-control mt-2 border-0">Celular:</label>
@@ -423,8 +423,6 @@ function comprar() {
         <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
         <button class="boton boton-verde" onclick="validarFormulario();">Finalizar</button>
     </div>`;
-
-    setTimeout(abrirModal, 500);
 }
 
 function validarFormulario() {
