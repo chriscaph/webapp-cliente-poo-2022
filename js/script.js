@@ -1,193 +1,3 @@
-var usuarios = [
-    {
-        codigo: 'U-1',
-        nombre: 'Juan',
-        usuario: 'juan123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-2',
-        nombre: 'Pedro',
-        usuario: 'pedro123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-3',
-        nombre: 'Carlos',
-        usuario: 'carlos123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: true,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-4',
-        nombre: 'María',
-        usuario: 'maria123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: false,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-5',
-        nombre: 'Alberto',
-        usuario: 'alberto123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: null,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-6',
-        nombre: 'Alex',
-        usuario: 'alex123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-7',
-        nombre: 'Matusalen',
-        usuario: 'matusalen123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-8',
-        nombre: 'Francisco',
-        usuario: 'francisco123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-9',
-        nombre: 'Paola',
-        usuario: 'paola123',
-        password: '1234',
-        tipo: 'C'
-    }
-];
-
-var categorias = [
-    {
-        codigo: 'C-1',
-        nombre: 'Farmacias',
-        imagen: 'farmacia.png',
-        descripcion: 'Lorem ipsum.',
-    }          
-];
-
-var empresas = [
-    {
-        codigo: 'E-1',
-        nombre: 'Farmacias Kielsa',
-        descripcion: 'Ubicados en cualquier punto estratégico del país.',
-        telefono: '2772-0011',
-        calificacion: 5,
-        direccion: 'Estamos ubicados en el boulevard Morazán.',
-        correo: 'kielsahonduras@kielsa.com',
-        logo: 'kielsa-logo.png',
-        banner: 'kielsa-banner.png',
-        codigoCategoria: 'C-1'
-    }, 
-    {
-        codigo: 'E-2',
-        nombre: 'Farmacias del ahorro',
-        descripcion: 'Ubicados en cualquier punto estratégico del país.',
-        telefono: '2772-2020',
-        calificacion: 4,
-        direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
-        correo: 'farmaciasdelahorro@ahorro.com',
-        logo: 'ahorro-logo.png',
-        banner: 'ahorro-banner.png',
-        codigoCategoria: 'C-1'
-    }
-];
-
-var productos = [
-    {
-        codigo: 'P-1',
-        nombre: 'Panadol ultra 104 tabletas',
-        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-        cantidad: 25,
-        precio: 314.95,
-        imagen: 'panadol-ultra.jpg',
-        codigoEmpresa: 'E-1'
-    },
-    {
-        codigo: 'P-2',
-        nombre: 'Sudagrip antigripal',
-        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-        cantidad: 100,
-        precio: 14.98,
-        imagen: 'sudagrip-antigripal.png',
-        codigoEmpresa: 'E-1'
-    },
-    {
-        codigo: 'P-3',
-        nombre: 'Panadol ultra 104 tabletas',
-        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-        cantidad: 25,
-        precio: 314.95,
-        imagen: 'panadol-ultra.jpg',
-        codigoEmpresa: 'E-2'
-    },
-    {
-        codigo: 'P-4',
-        nombre: 'Sudagrip antigripal',
-        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-        cantidad: 100,
-        precio: 14.98,
-        imagen: 'sudagrip-antigripal.png',
-        codigoEmpresa: 'E-2'
-    }
-];
-
-var ordenes = [
-    {
-        codigo: 'O-1',
-        nombre: 'Orden 1',
-        estado: 'disponible',
-        cliente: {
-            nombre: 'Alex',
-            telefono: '9199-1111',
-            correo: 'alex@unah.hn'
-        },
-        envio: {
-            productos: [
-                {
-                    codigo: 'P-1',
-                    nombre: 'Panadol ultra 104 tabletas',
-                    precio: 314.95,
-                    cantidad: 3
-                },
-                {
-                    codigo: 'P-2',
-                    nombre: 'Sudagrip antigripal',
-                    precio: 14.98,
-                    cantidad: 2
-                }
-            ],
-            direccion: 'lorem ipsum.',
-            empresa: 'Farmacias Kielsa',
-            subtotal: 974.81,
-            isv: 146.22,
-            comisionMotorista: 97.48,
-            comisionAdministrador: 48.74,
-            total: 292.44,
-            estado: null,
-            coordenadas: null,
-            motorista: null,
-
-        }
-    }
-];
-
 var sectionCategorias = document.getElementById('section-categorias');
 var sectionEmpresas = document.getElementById('section-empresas');
 var sectionProductos = document.getElementById('section-productos');
@@ -202,38 +12,61 @@ var comisiones = 0;
 var total = 0;
 var carrito = [];
 var contador = 0;
+var emp;
+
+var categorias = [];
+var empresas = [];
+var productos = [];
 
 function generarCategorias() {
-    sectionCategorias.innerHTML = '<div class="titulo-section borde-azul">Categorías</div>';
-    categorias.forEach( (categoria, indice) => {
-        sectionCategorias.innerHTML +=
-        `<div class="col-12 col-sm-6 col-md-4">
-            <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas('${categoria.codigo}');">
-                <img class="card-img-left example-card-img-responsive" src="img/categorias/${categoria.imagen}" />
-                <h5 class="h5-categoria">${categoria.nombre}</h5>
-            </div>
-        </div>`;
-    });
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/categorias'
+    })
+        .then(res => {
+            categorias = res.data;
+            sectionCategorias.innerHTML = '<div class="titulo-section borde-azul">Categorías</div>';
+            categorias.forEach((categoria, indice) => {
+                sectionCategorias.innerHTML +=
+                    `<div class="col-12 col-sm-6 col-md-4">
+                    <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas('${categoria._id}');">
+                        <img class="card-img-left example-card-img-responsive" src="img/categorias/${categoria.imagen}" />
+                        <h5 class="h5-categoria">${categoria.nombre}</h5>
+                    </div>
+                </div>`;
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function generarEmpresas(codigoCategoria) {
-    let filtro = empresas.filter(empresa => empresa.codigoCategoria == codigoCategoria);
-    categoriaActual = categorias.filter(categoria => categoria.codigo == codigoCategoria)[0];
-    sectionCategorias.style.display = 'none';
-    sectionEmpresas.innerHTML = `<div class="titulo-section borde-azul">${categoriaActual.nombre}</div>`;
-    filtro.forEach( (empresa, indice) => {
 
-        estrellas = '';
-        for (let i = 0; i < empresa.calificacion; i++) {
-            estrellas += '<i class="fa-solid fa-star"></i>';
-        }
-        for (let i = 0; i < 5 - empresa.calificacion; i++) {
-            estrellas += '<i class="fa-regular fa-star"></i>';
-        }
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/empresas'
+    })
+        .then(res => {
+            empresas = res.data;
+            let filtro = empresas.filter(empresa => empresa.codigoCategoria == codigoCategoria);
+            categoriaActual = categorias.filter(categoria => categoria._id == codigoCategoria)[0];
+            sectionCategorias.style.display = 'none';
+            sectionEmpresas.innerHTML = `<div class="titulo-section borde-azul">${categoriaActual.nombre}</div>`;
+            filtro.forEach((empresa, indice) => {
 
-        sectionEmpresas.innerHTML +=
-        `<div class="col-12 col-sm-6">
-            <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa.codigo}');">
+                estrellas = '';
+                for (let i = 0; i < empresa.calificacion; i++) {
+                    estrellas += '<i class="fa-solid fa-star"></i>';
+                }
+                for (let i = 0; i < 5 - empresa.calificacion; i++) {
+                    estrellas += '<i class="fa-regular fa-star"></i>';
+                }
+
+                sectionEmpresas.innerHTML +=
+                    `<div class="col-12 col-sm-6">
+            <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa._id}');">
                 <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/empresas/${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
                 </div>
                 <div class="card-img-overlay">
@@ -254,20 +87,33 @@ function generarEmpresas(codigoCategoria) {
                 </div>
             </div>
         </div>`;
-    });
+            });
 
-    sectionEmpresas.style.display = 'flex';
+            sectionEmpresas.style.display = 'flex';
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function generarProductos(codigoEmpresa) {
-    let filtro = productos.filter(producto => producto.codigoEmpresa == codigoEmpresa);
-    empresaActual = empresas.filter(empresa => empresa.codigo == codigoEmpresa)[0];
-    sectionEmpresas.style.display = 'none';
-    sectionProductos.innerHTML = `<div class="titulo-section borde-azul">${empresaActual.nombre}</div>`;
-    filtro.forEach( (producto, indice) => {
-        sectionProductos.innerHTML +=
-        `<div class="col-12 col-md-6 col-lg-4">
-            <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto('${producto.codigo}');">
+
+    emp = empresas.filter(empresa => empresa._id == codigoEmpresa)[0].nombre;
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/productos'
+    })
+        .then(res => {
+            productos = res.data;
+            let filtro = productos.filter(producto => producto.codigoEmpresa == codigoEmpresa);
+            empresaActual = empresas.filter(empresa => empresa._id == codigoEmpresa)[0];
+            sectionEmpresas.style.display = 'none';
+            sectionProductos.innerHTML = `<div class="titulo-section borde-azul">${empresaActual.nombre}</div>`;
+            filtro.forEach((producto, indice) => {
+                sectionProductos.innerHTML +=
+                    `<div class="col-12 col-md-6 col-lg-4">
+            <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto('${producto._id}');">
                 <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6 class="mb-2">${producto.nombre}</h6>
@@ -278,15 +124,19 @@ function generarProductos(codigoEmpresa) {
                 </div>
             </div>
         </div>`;
-    });
+            });
 
-    sectionProductos.style.display = 'flex';
+            sectionProductos.style.display = 'flex';
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function seleccionarProducto(codigoProducto) {
-    productoActual = productos.filter(producto => producto.codigo == codigoProducto)[0];
+    productoActual = productos.filter(producto => producto._id == codigoProducto)[0];
     modalBodyCliente.innerHTML =
-    `<h5 class="titulo-modal mb-5 mt-3">Cantidad de productos:</h5>
+        `<h5 class="titulo-modal mb-5 mt-3">Cantidad de productos:</h5>
     <input id="cantidadProductos" class="borde-naranja mb-5" type="number" min="1" max="${productoActual.cantidad}" value="1">
     <div class="botones-modal mb-3">
         <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
@@ -309,15 +159,16 @@ function agregarAlCarrito() {
     let spinCantidad = document.getElementById('cantidadProductos');
     carrito.push(
         {
-            codigo: productoActual.codigo,
+            codigo: productoActual._id,
             imagen: productoActual.imagen,
-            producto: productoActual.nombre,
-            cantidad: spinCantidad.value,
+            nombre: productoActual.nombre,
+            cantidad: Number(spinCantidad.value),
             descripcion: productoActual.descripcion,
-            precio: productoActual.precio
+            precio: Number(productoActual.precio),
+            empresa: emp
         }
     );
-    
+
     contador = carrito.length;
     divContador.innerHTML = contador;
 
@@ -326,7 +177,7 @@ function agregarAlCarrito() {
 }
 
 function obtenerLocalStorage() {
-    if (localStorage.getItem('carrito') != null){
+    if (localStorage.getItem('carrito') != null) {
         carrito = JSON.parse(localStorage.getItem('carrito'));
         contador = carrito.length;
         divContador.innerHTML = contador;
@@ -337,7 +188,7 @@ function abrirCarrito() {
     subtotal = 0;
     if (carrito.length == 0) {
         modalBodyCliente.innerHTML =
-        `<h5 class="titulo-modal my-3">Carrito de compras</h5>
+            `<h5 class="titulo-modal my-3">Carrito de compras</h5>
         <i class="fa-solid fa-cart-shopping carrito-modal my-4"></i>
         <h6 class="subtitulo-modal mb-2">Carrito vacío</h6>
         <p class="parrafo-modal mb-3">Agrega productos para empezar.</p>
@@ -347,10 +198,10 @@ function abrirCarrito() {
         carrito.forEach(producto => {
             subtotal += producto.precio * producto.cantidad;
             productosCarrito +=
-            `<div class="card flex-row borde-verde div-producto mb-1">
+                `<div class="card flex-row borde-verde div-producto mb-1">
                 <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
                 <div class="contenido-producto">
-                    <h6>${producto.producto}</h6>
+                    <h6>${producto.nombre}</h6>
                     <div class="contenidoDescripcion">
                         <p>${producto.descripcion}</p>
                     </div>
@@ -362,7 +213,7 @@ function abrirCarrito() {
         comisiones = subtotal * 0.15;
         total = subtotal + isv + comisiones;
         modalBodyCliente.innerHTML =
-        `<h5 class="titulo-modal my-3">Carrito de compras</h5>
+            `<h5 class="titulo-modal my-3">Carrito de compras</h5>
         ${productosCarrito}
         <div class="total mt-3">
             <div class="carrito">
@@ -389,7 +240,7 @@ function abrirCarrito() {
 
 function comprar() {
     modalBodyCliente.innerHTML =
-    `<h5 class="titulo-modal my-3">Finalizar compra</h5>
+        `<h5 class="titulo-modal my-3">Finalizar compra</h5>
     <label class="form-control mt-2 border-0">Celular:</label>
     <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="xxxx-xxxx" required>
     <label class="form-control mt-2 border-0">Correo:</label>
@@ -439,26 +290,67 @@ function validarFormulario() {
     if (txtcelular == '' || txtcorreo == '' || txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
         alert("Por favor, llene todos los campos.");
     } else {
-        finalizarCompra();
+        if (longitud == '' || latitud == '') {
+            alert('seleccione su ubicación en el mapa.');
+        } else {
+            let o = {
+                nombre: carrito[0].empresa,
+                estado: 'disponible',
+                cliente: {
+                    nombre: txtnombre,
+                    correo: txtcorreo,
+                    celular: txtcelular
+                },
+                envio: {
+                    productos: carrito,
+                    direccion: txtdireccion,
+                    empresa: carrito[0].empresa,
+                    subtotal: subtotal,
+                    total: total,
+                    coordenadas: {
+                        longitud: longitud,
+                        latitud: latitud
+                    },
+                    estado: null,
+                    isv: isv,
+                    comisionMotorista: subtotal * 0.1,
+                    comisionAdministrador: subtotal * 0.05,
+                    motorista: null
+                }
+            }
+
+            finalizarCompra(o);
+        }
     }
 }
 
-function finalizarCompra() {
-    cerrarModal();
+function finalizarCompra(o) {
 
-    modalBodyCliente.parentNode.classList.remove('borde-naranja');
-    modalBodyCliente.parentNode.classList.add('borde-verde');
+    axios({
+        method: 'POST',
+        url: 'http://localhost:4200/ordenes',
+        data: o
+    })
+        .then(res => {
+            cerrarModal();
 
-    modalBodyCliente.innerHTML =
-    `<h5 class="titulo-modal my-4">¡Orden pendiente!</h5>
-    <div class="check my-3">
-        <i class="fa-solid fa-circle-check"></i>
-    </div>
-    <h6 class="subtitulo-modal">Tu orden será tomada en breve.</h6>
-    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
+            modalBodyCliente.parentNode.classList.remove('borde-naranja');
+            modalBodyCliente.parentNode.classList.add('borde-verde');
 
-    setTimeout(abrirModal, 500);
-    limpiarLocalStorage();
+            modalBodyCliente.innerHTML =
+                `<h5 class="titulo-modal my-4">¡Orden pendiente!</h5>
+                <div class="check my-3">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h6 class="subtitulo-modal">${res.data}</h6>
+                <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
+
+            setTimeout(abrirModal, 500);
+            limpiarLocalStorage();
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function irAtras() {
