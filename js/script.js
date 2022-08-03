@@ -31,7 +31,7 @@ function generarCategorias() {
                 sectionCategorias.innerHTML +=
                     `<div class="col-12 col-sm-6 col-md-4">
                     <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas('${categoria._id}');">
-                        <img class="card-img-left example-card-img-responsive" src="img/categorias/${categoria.imagen}" />
+                        <img class="card-img-left example-card-img-responsive" src="${categoria.imagen}" />
                         <h5 class="h5-categoria">${categoria.nombre}</h5>
                     </div>
                 </div>`;
@@ -67,13 +67,13 @@ function generarEmpresas(codigoCategoria) {
                 sectionEmpresas.innerHTML +=
                     `<div class="col-12 col-sm-6">
             <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa._id}');">
-                <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/empresas/${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
+                <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
                 </div>
                 <div class="card-img-overlay">
                     <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
                 </div>
                 <div class="card flex-row content-empresa">
-                    <img class="card-img-left example-card-img-responsive" src="img/empresas/${empresa.logo}" />
+                    <img class="card-img-left example-card-img-responsive" src="${empresa.logo}" />
                     <div class="contenido-empresa">
                         <h6>Descripción:</h6>
                         <p>${empresa.descripcion}</p>
@@ -114,7 +114,7 @@ function generarProductos(codigoEmpresa) {
                 sectionProductos.innerHTML +=
                     `<div class="col-12 col-md-6 col-lg-4">
             <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto('${producto._id}');">
-                <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
+                <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6 class="mb-2">${producto.nombre}</h6>
                     <div class="contenidoDescripcion">
@@ -199,7 +199,7 @@ function abrirCarrito() {
             subtotal += producto.precio * producto.cantidad;
             productosCarrito +=
                 `<div class="card flex-row borde-verde div-producto mb-1">
-                <img class="card-img-left example-card-img-responsive" src="img/productos/${producto.imagen}" />
+                <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
                 <div class="contenido-producto">
                     <h6>${producto.nombre}</h6>
                     <div class="contenidoDescripcion">
@@ -314,9 +314,9 @@ function validarFormulario() {
                     estado: null,
                     isv: isv,
                     comisionMotorista: subtotal * 0.1,
-                    comisionAdministrador: subtotal * 0.05,
-                    motorista: null
-                }
+                    comisionAdministrador: subtotal * 0.05
+                },
+                motorista: null
             }
 
             finalizarCompra(o);
