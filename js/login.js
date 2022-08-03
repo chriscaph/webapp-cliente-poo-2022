@@ -1,108 +1,42 @@
-var usuarios = [
-    {
-        codigo: 'U-1',
-        nombre: 'Juan',
-        usuario: 'juan123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-2',
-        nombre: 'Pedro',
-        usuario: 'pedro123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-3',
-        nombre: 'Carlos',
-        usuario: 'carlos123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: true,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-4',
-        nombre: 'María',
-        usuario: 'maria123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: false,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-5',
-        nombre: 'Alberto',
-        usuario: 'alberto123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: null,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-6',
-        nombre: 'Alex',
-        usuario: 'alex123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-7',
-        nombre: 'Matusalen',
-        usuario: 'matusalen123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-8',
-        nombre: 'Francisco',
-        usuario: 'francisco123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-9',
-        nombre: 'Paola',
-        usuario: 'paola123',
-        password: '1234',
-        tipo: 'C'
-    }
-];
-
-localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-function obtenerLocalStorage() {
-    usuarios = JSON.parse(localStorage.getItem('usuarios'));
-    categorias = JSON.parse(localStorage.getItem('categorias'));
-}
-
 sectionLogin = document.getElementById('section-login');
 sectionRegistration = document.getElementById('section-registration');
 modalBodySesion = document.getElementById('modal-body-sesion');
 
 function validarFormulario1() {
-    let txtusuario = document.getElementById('txtusuario-login').value;
-    let txtpassword = document.getElementById('txtpassword-login').value;
-    let filtro = [];
-    if (txtusuario == '' || txtpassword == '') {
+    let txtusuario = document.getElementById('txtusuario-login');
+    let txtpassword = document.getElementById('txtpassword-login');
+
+    if (txtusuario.value == '' || txtpassword.value == '') {
         alert("Por favor, llene todos los campos.");
     } else {
-        filtro = usuarios.filter(usuario => usuario.usuario == txtusuario && usuario.password == txtpassword && usuario.tipo == 'C');
-        if (filtro.length == 0) {
-            modalBodySesion.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Usuario no registrado!</h5>
-            <div class="error my-3">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </div>
-            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
-            abrirModal();
-        } else {
-            window.open('usuarios.html', '_self');
+
+        usuario = {
+            usuario: txtusuario.value,
+            password: txtpassword.value,
+            tipo: 'C'
         }
+
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/usuarios/login/C',
+            data: usuario
+        })
+            .then(res => {
+                console.log(res.data);
+                if (res.data.codigo == 0) {
+                    modalBodySesion.innerHTML =
+                        `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                        <div class="error my-3">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
+                        abrirModal();
+                } else {
+                    window.open('cliente.html', '_self');
+                }
+                
+            })
+            .catch(error => console.log('error', error));
     }
 }
 
@@ -117,43 +51,48 @@ function abrirLogin() {
 }
 
 function validarFormulario2() {
-    let txtnombre = document.getElementById('txtnombre-registration').value;
-    let txtusuario = document.getElementById('txtusuario-registration').value;
-    let txtpassword = document.getElementById('txtpassword-registration').value;
+    let txtnombre = document.getElementById('txtnombre-registration');
+    let txtusuario = document.getElementById('txtusuario-registration');
+    let txtpassword = document.getElementById('txtpassword-registration');
 
-    let filtro = [];
-    if (txtnombre == '' || txtusuario == '' || txtpassword == '') {
+    if (txtnombre.value == '' || txtusuario.value == '' || txtpassword.value == '') {
         alert("Por favor, llene todos los campos.");
     } else {
-        filtro = usuarios.filter(usuario => usuario.usuario == txtusuario && usuario.tipo == 'C');
-        if (filtro.length != 0) {
-            modalBodySesion.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Este usuario ya existe!</h5>
-            <div class="error my-3">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </div>
-            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
-        } else {
-            usuarios.push({
-                codigo: 'U-' + (usuarios.length + 1),
-                nombre: txtnombre,
-                usuario: txtusuario,
-                password: txtpassword,
-                tipo: 'C'
-            });
-            modalBodySesion.parentNode.classList.add('borde-verde');
-            modalBodySesion.parentNode.classList.remove('borde-rojo');
-            modalBodySesion.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Usuario registrado!</h5>
-            <div class="check my-3">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
-
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
+        let usuario = {
+            nombre: txtnombre.value,
+            usuario: txtusuario.value,
+            password: txtpassword.value,
+            tipo: 'C'
         }
-        abrirModal();
+
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/usuarios/registro/C',
+            data: usuario
+        })
+            .then(res => {
+                if (res.data.codigo == 0) {
+                    modalBodySesion.parentNode.classList.remove('borde-verde');
+                    modalBodySesion.parentNode.classList.add('borde-rojo');
+                    modalBodySesion.innerHTML =
+                        `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                        <div class="error my-3">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
+                } else {
+                    modalBodySesion.parentNode.classList.add('borde-verde');
+                    modalBodySesion.parentNode.classList.remove('borde-rojo');
+                    modalBodySesion.innerHTML =
+                        `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                        <div class="check my-3">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
+                }
+                abrirModal();
+            })
+            .catch(error => console.log('Error, registro', error));
     }
 }
 
@@ -163,13 +102,4 @@ function abrirModal() {
 
 function cerrarModal() {
     $('#modal').modal('hide');
-    modalBodySesion.parentNode.classList.remove('borde-verde');
-    modalBodySesion.parentNode.classList.add('borde-rojo');
 }
-
-function guardarLocalStorage() {
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-}
-
-guardarLocalStorage();
-obtenerLocalStorage();
