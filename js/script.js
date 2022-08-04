@@ -14,6 +14,13 @@ var carrito = [];
 var contador = 0;
 var emp;
 
+var nombreCliente = obtenerParametro('nom');
+var idSession = obtenerParametro('ses');
+
+if (idSession.length == 0) {
+    idSession = '1';
+}
+
 var categorias = [];
 var empresas = [];
 var productos = [];
@@ -157,23 +164,35 @@ function cerrarModal() {
 
 function agregarAlCarrito() {
     let spinCantidad = document.getElementById('cantidadProductos');
-    carrito.push(
-        {
-            codigo: productoActual._id,
-            imagen: productoActual.imagen,
-            nombre: productoActual.nombre,
-            cantidad: Number(spinCantidad.value),
-            descripcion: productoActual.descripcion,
-            precio: Number(productoActual.precio),
-            empresa: emp
-        }
-    );
-
-    contador = carrito.length;
-    divContador.innerHTML = contador;
-
-    cerrarModal();
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+    axios({
+        method: 'get',
+        url: `http://localhost:4200/sesiones/${idSession}`,
+    })
+        .then(res => {
+            console.log(res.data);
+            if (res.data.codigo == 0) {
+                alert('No estás registrado, regístrate para poder comprar.');
+            } else {
+                carrito.push(
+                    {
+                        codigo: productoActual._id,
+                        imagen: productoActual.imagen,
+                        nombre: productoActual.nombre,
+                        cantidad: Number(spinCantidad.value),
+                        descripcion: productoActual.descripcion,
+                        precio: Number(productoActual.precio),
+                        empresa: emp
+                    }
+                );
+            
+                contador = carrito.length;
+                divContador.innerHTML = contador;
+            
+                cerrarModal();
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+            }
+        })
+        .catch(error => console.log('error de la verificación', error));
 }
 
 function obtenerLocalStorage() {
@@ -241,39 +260,39 @@ function abrirCarrito() {
 function comprar() {
     modalBodyCliente.innerHTML =
         `<h5 class="titulo-modal my-3">Finalizar compra</h5>
-    <label class="form-control mt-2 border-0">Celular:</label>
-    <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="xxxx-xxxx" required>
-    <label class="form-control mt-2 border-0">Correo:</label>
-    <input class="form-control borde-naranja" type="text" id="text-correo" placeholder="xxxx@xxxx.com" required>
-    <label class="form-control mt-2 border-0">Escribe tu dirección:</label>
-    <textarea id="textDireccion" class="textarea-dirección form-control borde-naranja" rows="4" cols="50" required></textarea>
-    <label class="form-control mt-2 border-0">Selecciona tu ubicación:</label>
-    <div id="mapa" style="width: 100%; height: 200px;"></div>
-    <input type="hidden" id="longitud" value="-87.17472108959961">
-    <input type="hidden" id="latitud" value= "14.07425613883513">
-    <label class="form-control mt-2 border-0">Información de tarjeta:</label>
-    <div class="informacion-tarjeta borde-naranja row pb-3">
-        <div class="col-12">
-            <label>Número:</label>
-            <input class="form-control borde-naranja" type="text" id="text-numero" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+        <label class="form-control mt-2 border-0">Celular:</label>
+        <input class="form-control borde-naranja" type="text" id="text-celular" placeholder="xxxx-xxxx" required>
+        <label class="form-control mt-2 border-0">Correo:</label>
+        <input class="form-control borde-naranja" type="text" id="text-correo" placeholder="xxxx@xxxx.com" required>
+        <label class="form-control mt-2 border-0">Escribe tu dirección:</label>
+        <textarea id="textDireccion" class="textarea-dirección form-control borde-naranja" rows="4" cols="50" required></textarea>
+        <label class="form-control mt-2 border-0">Selecciona tu ubicación:</label>
+        <div id="mapa" style="width: 100%; height: 200px;"></div>
+        <input type="hidden" id="longitud" value="-87.17472108959961">
+        <input type="hidden" id="latitud" value= "14.07425613883513">
+        <label class="form-control mt-2 border-0">Información de tarjeta:</label>
+        <div class="informacion-tarjeta borde-naranja row pb-3">
+            <div class="col-12">
+                <label>Número:</label>
+                <input class="form-control borde-naranja" type="text" id="text-numero" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+            </div>
+            <div class="col-12">
+                <label>Nombre:</label>
+                <input class="form-control borde-naranja" type="text" id="text-nombre" placeholder="Nombre exacto" required>
+            </div>
+            <div class="col-6">
+                <label>Expiración:</label>
+                <input class="form-control borde-naranja" type="text" id="text-expiracion" placeholder="MM/AA" required>
+            </div>
+            <div class="col-6">
+                <label>CVC:</label>
+                <input class="form-control borde-naranja" type="text" id="text-cvc" placeholder="xxx" required>
+            </div>
         </div>
-        <div class="col-12">
-            <label>Nombre:</label>
-            <input class="form-control borde-naranja" type="text" id="text-nombre" placeholder="Nombre exacto" required>
-        </div>
-        <div class="col-6">
-            <label>Expiración:</label>
-            <input class="form-control borde-naranja" type="text" id="text-expiracion" placeholder="MM/AA" required>
-        </div>
-        <div class="col-6">
-            <label>CVC:</label>
-            <input class="form-control borde-naranja" type="text" id="text-cvc" placeholder="xxx" required>
-        </div>
-    </div>
-    <div class="botones-modal my-3">
-        <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
-        <button class="boton boton-verde" onclick="validarFormulario();">Finalizar</button>
-    </div>`;
+        <div class="botones-modal my-3">
+            <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
+            <button class="boton boton-verde" onclick="validarFormulario();">Finalizar</button>
+        </div>`;
 }
 
 function validarFormulario() {
@@ -297,7 +316,7 @@ function validarFormulario() {
                 nombre: carrito[0].empresa,
                 estado: 'disponible',
                 cliente: {
-                    nombre: txtnombre,
+                    nombre: nombreCliente,
                     correo: txtcorreo,
                     celular: txtcelular
                 },
@@ -369,6 +388,17 @@ function limpiarLocalStorage() {
     carrito.length = 0;
     contador = carrito.length
     divContador.innerHTML = contador;
+}
+
+function obtenerParametro(valor){
+    valor = valor.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    let expresionRegular = "[\\?&]" + valor + "=([^&#]*)";
+    let regex = new RegExp(expresionRegular);
+    let r = regex.exec( window.location.href );
+    if( r == null )
+        return "";
+    else
+        return decodeURIComponent(r[1].replace(/\ + /g, " "));
 }
 
 generarCategorias();
