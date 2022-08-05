@@ -401,5 +401,12 @@ function obtenerParametro(valor){
         return decodeURIComponent(r[1].replace(/\ + /g, " "));
 }
 
+function cerrarSesion() {
+    axios({
+        method: 'get',
+        url: `http://localhost:4200/sesiones/cerrar/${idSession}`
+    })
+}
+
 generarCategorias();
 obtenerLocalStorage();
