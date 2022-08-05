@@ -16,6 +16,7 @@ var emp;
 
 var nombreCliente = obtenerParametro('nom');
 var idSession = obtenerParametro('ses');
+var idUsuario = obtenerParametro('id');
 
 if (idSession.length == 0) {
     idSession = '1';
@@ -313,6 +314,7 @@ function validarFormulario() {
             alert('seleccione su ubicación en el mapa.');
         } else {
             let o = {
+                idCliente: idUsuario,
                 nombre: carrito[0].empresa,
                 estado: 'disponible',
                 cliente: {
@@ -406,6 +408,58 @@ function cerrarSesion() {
         method: 'get',
         url: `http://localhost:4200/sesiones/cerrar/${idSession}`
     })
+}
+
+function OrdenesPendientes() {
+    axios({
+        method: 'get',
+        url: `http://localhost:4200/ordenes/pendientes/${idUsuario}`
+    })
+        .then(res => {
+            console.log(res.data);
+            if (res.data.length == 0) {
+                modalBodyCliente.innerHTML =
+                    `<h5 class="titulo-modal my-3">Ordenes pendientes</h5>
+                    <i class="fa-solid fa-list carrito-modal my-4"></i>
+                    <h6 class="subtitulo-modal mb-2">No tienes ordenes pendientes.</h6>
+                    <p class="parrafo-modal mb-3">¡haz una orden para empezar!</p>
+                    <button class="boton boton-blanco borde-rojo mb-3" onclick="cerrarModal();">Cerrar</button>`;
+            } else {
+                let ordenes = '';
+                res.data.forEach(orden => {
+                    let productos = '';
+                    orden.envio.productos.forEach(producto => {
+                        productos += producto.cantidad + ' ' + producto.nombre + '; ';
+                    });
+                    if (orden.estado == 'disponible') {
+                        ordenes +=
+                            `<div class="borde-verde my-1 py-1 orden-pendiente">
+                                <h6 class="text-left pl-2">Orden: <span class="text-secondary">${productos}</span></h6>
+                                <h6 class="text-right pr-2">Estado: <span class="text-danger">pendiente</span></h6>
+                            </div>`;
+                    } else {
+                        ordenes +=
+                            `<div class="borde-verde my-1 py-1 orden-pendiente">
+                                <h6 class="text-left pl-2">Orden: <span class="text-secondary">${productos}</span></h6>
+                                <h6 class="text-right pr-2">Estado: <span class="text-success">tomada</span></h6>
+                            </div>`;
+                    }
+                    
+                });
+                modalBodyCliente.innerHTML =
+                    `<h5 class="titulo-modal my-3">Ordenes pendientes</h5>
+                    <div class="mt-3">
+                        ${ordenes}
+                    </div>
+                    <div class="botones-modal mt-2 mb-3">
+                        <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
+                    </div>`;
+            }
+            abrirModal();
+        })
+        .catch(error => {
+            console.log('error para pendientes', error);
+        })
 }
 
 generarCategorias();

@@ -32,7 +32,7 @@ function validarFormulario1() {
                         <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
                         abrirModal();
                 } else {
-                    window.open(`cliente.html?ses=${res.data.idSession}&nom=${res.data.nombre}`, '_self');
+                    window.open(`cliente.html?id=${res.data.id}&ses=${res.data.idSession}&nom=${res.data.nombre}`, '_self');
                 }
                 
             })
