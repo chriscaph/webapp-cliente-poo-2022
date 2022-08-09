@@ -2,6 +2,7 @@ var sectionCategorias = document.getElementById('section-categorias');
 var sectionEmpresas = document.getElementById('section-empresas');
 var sectionProductos = document.getElementById('section-productos');
 var modalBodyCliente = document.getElementById('modal-body-cliente');
+var modalBodyCliente2 = document.getElementById('modal-body-cliente2');
 var divContador = document.getElementById('contador');
 var categoriaActual;
 var empresaActual;
@@ -20,6 +21,7 @@ var idUsuario = obtenerParametro('id');
 
 if (idSession.length == 0) {
     idSession = '1';
+    idUsuario = '1';
 }
 
 var categorias = [];
@@ -38,7 +40,7 @@ function generarCategorias() {
             categorias.forEach((categoria, indice) => {
                 sectionCategorias.innerHTML +=
                     `<div class="col-12 col-sm-6 col-md-4">
-                    <div class="card flex-row color${indice % 4 + 1} div-categoria" onclick="generarEmpresas('${categoria._id}');">
+                    <div class="card flex-row color${indice % 4 + 1} div-categoria sombra" onclick="generarEmpresas('${categoria._id}');">
                         <img class="card-img-left example-card-img-responsive" src="${categoria.imagen}" />
                         <h5 class="h5-categoria">${categoria.nombre}</h5>
                     </div>
@@ -74,27 +76,27 @@ function generarEmpresas(codigoCategoria) {
 
                 sectionEmpresas.innerHTML +=
                     `<div class="col-12 col-sm-6">
-            <div class="card borde-verde div-empresa" onclick="generarProductos('${empresa._id}');">
-                <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
-                </div>
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
-                </div>
-                <div class="card flex-row content-empresa">
-                    <img class="card-img-left example-card-img-responsive" src="${empresa.logo}" />
-                    <div class="contenido-empresa">
-                        <h6>Descripción:</h6>
-                        <p>${empresa.descripcion}</p>
-                        <div class="calificacion">
-                            <h6>Calificación:</h6>
-                            <div class="estrellas">
-                                ${estrellas}
+                        <div class="card borde-verde div-empresa sombra" onclick="generarProductos('${empresa._id}');">
+                            <div class="card-img banner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${empresa.banner}); background-repeat: no-repeat; background-size: 100% 100%">
+                            </div>
+                            <div class="card-img-overlay">
+                                <h5 class="card-title text-white h5-empresa">${empresa.nombre}</h5>
+                            </div>
+                            <div class="card flex-row content-empresa">
+                                <img class="card-img-left example-card-img-responsive" src="${empresa.logo}" />
+                                <div class="contenido-empresa">
+                                    <h6>Descripción:</h6>
+                                    <p>${empresa.descripcion}</p>
+                                    <div class="calificacion">
+                                        <h6>Calificación:</h6>
+                                        <div class="estrellas">
+                                            ${estrellas}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+                    </div>`;
             });
 
             sectionEmpresas.style.display = 'flex';
@@ -121,17 +123,17 @@ function generarProductos(codigoEmpresa) {
             filtro.forEach((producto, indice) => {
                 sectionProductos.innerHTML +=
                     `<div class="col-12 col-md-6 col-lg-4">
-            <div class="card flex-row borde-verde div-producto" onclick="seleccionarProducto('${producto._id}');">
-                <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
-                <div class="contenido-producto">
-                    <h6 class="mb-2">${producto.nombre}</h6>
-                    <div class="contenidoDescripcion">
-                        <p>${producto.descripcion}</p>
-                    </div>
-                    <h6 class="precio-producto">L. ${producto.precio}</h6>
-                </div>
-            </div>
-        </div>`;
+                        <div class="card flex-row borde-verde div-producto sombra" onclick="seleccionarProducto('${producto._id}');">
+                            <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
+                            <div class="contenido-producto">
+                                <h6 class="mb-2">${producto.nombre}</h6>
+                                <div class="contenidoDescripcion">
+                                    <p>${producto.descripcion}</p>
+                                </div>
+                                <h6 class="precio-producto">L. ${producto.precio}</h6>
+                            </div>
+                        </div>
+                    </div>`;
             });
 
             sectionProductos.style.display = 'flex';
@@ -145,11 +147,11 @@ function seleccionarProducto(codigoProducto) {
     productoActual = productos.filter(producto => producto._id == codigoProducto)[0];
     modalBodyCliente.innerHTML =
         `<h5 class="titulo-modal mb-5 mt-3">Cantidad de productos:</h5>
-    <input id="cantidadProductos" class="borde-naranja mb-5" type="number" min="1" max="${productoActual.cantidad}" value="1">
-    <div class="botones-modal mb-3">
-        <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
-        <button class="boton boton-blanco borde-verde" onclick="agregarAlCarrito();">Aceptar</button>
-    </div>`;
+        <input id="cantidadProductos" class="borde-naranja mb-5" type="number" min="1" max="${productoActual.cantidad}" value="1">
+        <div class="botones-modal mb-3">
+            <button class="boton boton-blanco borde-rojo" onclick="cerrarModal();">Cerrar</button>
+            <button class="boton boton-blanco borde-verde" onclick="agregarAlCarrito();">Aceptar</button>
+        </div>`;
     abrirModal();
 }
 
@@ -157,10 +159,20 @@ function abrirModal() {
     $('#modal').modal('show');
 }
 
+function abrirModal2() {
+    $('#modal2').modal('show');
+}
+
 function cerrarModal() {
     $('#modal').modal('hide');
     modalBodyCliente.parentNode.classList.add('borde-naranja');
     modalBodyCliente.parentNode.classList.remove('borde-verde');
+}
+
+function cerrarModal2() {
+    $('#modal2').modal('hide');
+    modalBodyCliente2.parentNode.classList.add('borde-naranja');
+    modalBodyCliente2.parentNode.classList.remove('borde-verde');
 }
 
 function agregarAlCarrito() {
@@ -172,7 +184,15 @@ function agregarAlCarrito() {
         .then(res => {
             console.log(res.data);
             if (res.data.codigo == 0) {
-                alert('No estás registrado, regístrate para poder comprar.');
+                modalBodyCliente.parentNode.classList.add('borde-rojo');
+                modalBodyCliente.parentNode.classList.remove('borde-naranja');
+                modalBodyCliente.innerHTML =
+                `<h5 class="titulo-modal my-4">¡No estás registrado!</h5>
+                <div class="error my-3">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <h6 class="subtitulo-modal">Regístrate para poder comprar.</h6>
+                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
             } else {
                 carrito.push(
                     {
@@ -308,10 +328,29 @@ function validarFormulario() {
     let latitud = document.getElementById('latitud').value;
 
     if (txtcelular == '' || txtcorreo == '' || txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
-        alert("Por favor, llene todos los campos.");
+        modalBodyCliente2.parentNode.classList.add('borde-rojo');
+        modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+        cerrarModal();
+        abrirModal2();
     } else {
         if (longitud == '' || latitud == '') {
-            alert('seleccione su ubicación en el mapa.');
+            modalBodyCliente2.parentNode.classList.add('borde-rojo');
+            modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+            modalBodyCliente2.innerHTML =
+                `<h5 class="titulo-modal my-4">Seleccione su ubicación en el mapa</h5>
+                <div class="error my-3">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+            cerrarModal();
+            abrirModal2();
         } else {
             let o = {
                 idCliente: idUsuario,

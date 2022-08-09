@@ -212,6 +212,10 @@ label {
     margin-top: 10px;
 }
 
+.modal {
+    overflow: auto !important;
+}
+
 .check * {
     font-size: 50px;
     color: #9BC53D;
@@ -229,6 +233,10 @@ label {
 
 #section-productos, #section-empresas {
     display: none;
+}
+
+.sombra { 
+    box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.35);
 }
 
 footer {
