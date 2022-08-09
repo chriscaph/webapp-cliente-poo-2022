@@ -19,9 +19,13 @@ var nombreCliente = obtenerParametro('nom');
 var idSession = obtenerParametro('ses');
 var idUsuario = obtenerParametro('id');
 
+
+
 if (idSession.length == 0) {
     idSession = '1';
     idUsuario = '1';
+} else {
+    carritoObtener();
 }
 
 var categorias = [];
@@ -64,7 +68,7 @@ function generarEmpresas(codigoCategoria) {
             categoriaActual = categorias.filter(categoria => categoria._id == codigoCategoria)[0];
             sectionCategorias.style.display = 'none';
             sectionEmpresas.innerHTML = `<div class="titulo-section borde-azul">${categoriaActual.nombre}</div>`;
-            filtro.forEach((empresa, indice) => {
+            filtro.forEach((empresa) => {
 
                 estrellas = '';
                 for (let i = 0; i < empresa.calificacion; i++) {
@@ -120,7 +124,7 @@ function generarProductos(codigoEmpresa) {
             empresaActual = empresas.filter(empresa => empresa._id == codigoEmpresa)[0];
             sectionEmpresas.style.display = 'none';
             sectionProductos.innerHTML = `<div class="titulo-section borde-azul">${empresaActual.nombre}</div>`;
-            filtro.forEach((producto, indice) => {
+            filtro.forEach((producto) => {
                 sectionProductos.innerHTML +=
                     `<div class="col-12 col-md-6 col-lg-4">
                         <div class="card flex-row borde-verde div-producto sombra" onclick="seleccionarProducto('${producto._id}');">
@@ -208,23 +212,45 @@ function agregarAlCarrito() {
             
                 contador = carrito.length;
                 divContador.innerHTML = contador;
+
+                carritoActualizar();
             
                 cerrarModal();
-                localStorage.setItem('carrito', JSON.stringify(carrito));
             }
         })
         .catch(error => console.log('error de la verificación', error));
 }
 
-function obtenerLocalStorage() {
-    if (localStorage.getItem('carrito') != null) {
-        carrito = JSON.parse(localStorage.getItem('carrito'));
-        contador = carrito.length;
-        divContador.innerHTML = contador;
-    }
+function carritoActualizar() {
+    contador = carrito.length;
+    divContador.innerHTML = contador;
+    axios({
+        method: 'PUT',
+        url: `http://localhost:4200/usuarios/carrito/${idUsuario}`,
+        data: carrito
+    })
+}
+
+function carritoObtener() {
+    axios({
+        method: 'GET',
+        url: `http://localhost:4200/usuarios/carrito/${idUsuario}`
+    })
+        .then((res) => {
+            carrito = res.data
+            contador = carrito.length;
+            divContador.innerHTML = contador;
+            console.log(carrito);
+        })
+        .catch(() => console.log('Error al obtener el carrito.'))
 }
 
 function abrirCarrito() {
+    renderizarCarrito();
+    abrirModal();
+}
+
+function renderizarCarrito() {
     subtotal = 0;
     if (carrito.length == 0) {
         modalBodyCliente.innerHTML =
@@ -235,19 +261,21 @@ function abrirCarrito() {
         <button class="boton boton-blanco borde-rojo mb-3" onclick="cerrarModal();">Cerrar</button>`;
     } else {
         let productosCarrito = '';
-        carrito.forEach(producto => {
+        carrito.forEach((producto, indice) => {
             subtotal += producto.precio * producto.cantidad;
             productosCarrito +=
                 `<div class="card flex-row borde-verde div-producto mb-1">
-                <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
-                <div class="contenido-producto">
-                    <h6>${producto.nombre}</h6>
-                    <div class="contenidoDescripcion">
-                        <p>${producto.descripcion}</p>
+                    <img class="card-img-left example-card-img-responsive" src="${producto.imagen}" />
+                    <div class="contenido-producto">
+                        <div class="float-right eliminarProducto" onclick="eliminarDelCarrito(${indice})"><i class="fa-solid fa-trash-can"></i></div>
+                        <br>
+                        <h6>${producto.nombre}</h6>
+                        <div class="contenidoDescripcion">
+                            <p>${producto.descripcion}</p>
+                        </div>
+                        <h6 class="precio-producto">L. ${producto.precio} x ${producto.cantidad}</h6>
                     </div>
-                    <h6 class="precio-producto">L. ${producto.precio} x ${producto.cantidad}</h6>
-                </div>
-            </div>`;
+                </div>`;
         });
         isv = subtotal * 0.15;
         comisiones = subtotal * 0.15;
@@ -275,7 +303,14 @@ function abrirCarrito() {
             <button class="boton boton-verde" onclick="comprar(); cargarMapa();">Comprar</button>
         </div>`;
     }
-    abrirModal();
+}
+
+function eliminarDelCarrito(indice) {
+    carrito.splice(indice, 1);
+    carritoActualizar();
+    contador = carrito.length;
+    divContador.innerHTML = contador;
+    renderizarCarrito();
 }
 
 function comprar() {
@@ -406,7 +441,8 @@ function finalizarCompra(o) {
                 <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
 
             setTimeout(abrirModal, 500);
-            limpiarLocalStorage();
+            carrito.length = 0;
+            carritoActualizar();
         })
         .catch(error => {
             console.log(error);
@@ -422,13 +458,6 @@ function irAtras() {
         sectionProductos.style.display = 'none';
         sectionEmpresas.style.display = 'flex';
     }
-}
-
-function limpiarLocalStorage() {
-    localStorage.clear();
-    carrito.length = 0;
-    contador = carrito.length
-    divContador.innerHTML = contador;
 }
 
 function obtenerParametro(valor){
@@ -502,4 +531,3 @@ function OrdenesPendientes() {
 }
 
 generarCategorias();
-obtenerLocalStorage();

@@ -62,7 +62,8 @@ function validarFormulario2() {
             nombre: txtnombre.value,
             usuario: txtusuario.value,
             password: txtpassword.value,
-            tipo: 'C'
+            tipo: 'C',
+            carrito: []
         }
 
         axios({

@@ -20,6 +20,20 @@ header {
     width: 220px;
 }
 
+.eliminarProducto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    background-color: #BD2024;
+    color: white;
+    margin: 0;
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+
 #botones-header * {
     color: white;
     background-color: #BD2024;
