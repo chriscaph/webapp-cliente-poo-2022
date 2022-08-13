@@ -329,7 +329,7 @@ function comprar() {
         <label class="form-control mt-2 border-0">Escribe tu dirección:</label>
         <textarea id="textDireccion" class="textarea-dirección form-control borde-naranja" rows="4" cols="50" required></textarea>
         <label class="form-control mt-2 border-0">Selecciona tu ubicación:</label>
-        <div id="mapa" style="width: 100%; height: 200px;"></div>
+        <div id="mapa" class="borde-naranja" style="width: 100%; height: 200px;"></div>
         <input type="hidden" id="longitud" value="-87.17472108959961">
         <input type="hidden" id="latitud" value= "14.07425613883513">
         <label class="form-control mt-2 border-0">Información de tarjeta:</label>
