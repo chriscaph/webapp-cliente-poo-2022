@@ -14,6 +14,7 @@ var total = 0;
 var carrito = [];
 var contador = 0;
 var emp;
+var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 var nombreCliente = obtenerParametro('nom');
 var idSession = obtenerParametro('ses');
@@ -51,9 +52,6 @@ function generarCategorias() {
                 </div>`;
             });
         })
-        .catch(error => {
-            console.log(error);
-        });
 }
 
 function generarEmpresas(codigoCategoria) {
@@ -105,9 +103,6 @@ function generarEmpresas(codigoCategoria) {
 
             sectionEmpresas.style.display = 'flex';
         })
-        .catch(error => {
-            console.log(error);
-        });
 }
 
 function generarProductos(codigoEmpresa) {
@@ -142,9 +137,6 @@ function generarProductos(codigoEmpresa) {
 
             sectionProductos.style.display = 'flex';
         })
-        .catch(error => {
-            console.log(error);
-        });
 }
 
 function seleccionarProducto(codigoProducto) {
@@ -181,44 +173,60 @@ function cerrarModal2() {
 
 function agregarAlCarrito() {
     let spinCantidad = document.getElementById('cantidadProductos');
-    axios({
-        method: 'get',
-        url: `http://localhost:4200/sesiones/${idSession}`,
-    })
-        .then(res => {
-            console.log(res.data);
-            if (res.data.codigo == 0) {
-                modalBodyCliente.parentNode.classList.add('borde-rojo');
-                modalBodyCliente.parentNode.classList.remove('borde-naranja');
-                modalBodyCliente.innerHTML =
-                `<h5 class="titulo-modal my-4">¡No estás registrado!</h5>
-                <div class="error my-3">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                </div>
-                <h6 class="subtitulo-modal">Regístrate para poder comprar.</h6>
-                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
-            } else {
-                carrito.push(
-                    {
-                        codigo: productoActual._id,
-                        imagen: productoActual.imagen,
-                        nombre: productoActual.nombre,
-                        cantidad: Number(spinCantidad.value),
-                        descripcion: productoActual.descripcion,
-                        precio: Number(productoActual.precio),
-                        empresa: emp
-                    }
-                );
-            
-                contador = carrito.length;
-                divContador.innerHTML = contador;
+    let n = Number(spinCantidad.value);
 
-                carritoActualizar();
-            
-                cerrarModal();
-            }
+    if ((n % 1 != 0) || n < 1) {
+        modalBodyCliente2.parentNode.classList.add('borde-rojo');
+        modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Cantidad inválida!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Ingrese un entero mayor que 0.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+        cerrarModal();
+        abrirModal2();
+    } else {
+
+        axios({
+            method: 'get',
+            url: `http://localhost:4200/sesiones/${idSession}`,
         })
-        .catch(error => console.log('error de la verificación', error));
+            .then(res => {
+                if (res.data.codigo == 0) {
+                    modalBodyCliente.parentNode.classList.add('borde-rojo');
+                    modalBodyCliente.parentNode.classList.remove('borde-naranja');
+                    modalBodyCliente.innerHTML =
+                    `<h5 class="titulo-modal my-4">¡No estás registrado!</h5>
+                    <div class="error my-3">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <h6 class="subtitulo-modal">Regístrate para poder comprar.</h6>
+                    <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal();">Aceptar</button>`;
+                } else {
+                    carrito.push(
+                        {
+                            codigo: productoActual._id,
+                            imagen: productoActual.imagen,
+                            nombre: productoActual.nombre,
+                            cantidad: Number(spinCantidad.value),
+                            descripcion: productoActual.descripcion,
+                            precio: Number(productoActual.precio),
+                            empresa: emp
+                        }
+                    );
+                
+                    contador = carrito.length;
+                    divContador.innerHTML = contador;
+
+                    carritoActualizar();
+                
+                    cerrarModal();
+                }
+            })
+
+    }
 }
 
 function carritoActualizar() {
@@ -240,9 +248,7 @@ function carritoObtener() {
             carrito = res.data
             contador = carrito.length;
             divContador.innerHTML = contador;
-            console.log(carrito);
         })
-        .catch(() => console.log('Error al obtener el carrito.'))
 }
 
 function abrirCarrito() {
@@ -362,6 +368,11 @@ function validarFormulario() {
     let longitud = document.getElementById('longitud').value;
     let latitud = document.getElementById('latitud').value;
 
+    let expTelefono = /^\d{4}-\d{4}$/
+    let expSeguridad = /^\d{3}$/
+    let expFecha = /^(?:0?[1-9]|1[0-2])\/\d{2}$/
+    let expTarjeta = /^\d{4}-\d{4}-\d{4}-\d{4}$/
+
     if (txtcelular == '' || txtcorreo == '' || txtdireccion == '' || txtnumero == '' || txtnombre == '' || txtexpiracion == '' || txtcvc == '') {
         modalBodyCliente2.parentNode.classList.add('borde-rojo');
         modalBodyCliente2.parentNode.classList.remove('borde-naranja');
@@ -372,54 +383,92 @@ function validarFormulario() {
             </div>
             <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
-        cerrarModal();
-        abrirModal2();
+        
+    } else if (!expCorreo.test(txtcorreo)) {
+        modalBodyCliente2.parentNode.classList.add('borde-rojo');
+        modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Correo inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, escribe un correo válido.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+        
+    } else if (!expTelefono.test(txtcelular)) {
+        modalBodyCliente2.parentNode.classList.add('borde-rojo');
+        modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Teléfono inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, escribe un número válido.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+        
+    } else if (!expTarjeta.test(txtnumero) || !expFecha.test(txtexpiracion) || !expSeguridad.test(txtcvc)) {
+        modalBodyCliente2.parentNode.classList.add('borde-rojo');
+        modalBodyCliente2.parentNode.classList.remove('borde-naranja');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Datos de la tarjeta inválidos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, Revise sus datos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
+        
     } else {
-        if (longitud == '' || latitud == '') {
-            modalBodyCliente2.parentNode.classList.add('borde-rojo');
-            modalBodyCliente2.parentNode.classList.remove('borde-naranja');
-            modalBodyCliente2.innerHTML =
-                `<h5 class="titulo-modal my-4">Seleccione su ubicación en el mapa</h5>
-                <div class="error my-3">
-                    <i class="fa-solid fa-circle-xmark"></i>
+        modalBodyCliente2.parentNode.classList.add('borde-amarillo');
+        modalBodyCliente2.parentNode.classList.remove('borde-rojo');
+        modalBodyCliente2.innerHTML =
+            `<h5 class="titulo-modal my-4">¿Está seguro que desea ya ordenar?</h5>
+                <div class="advertencia my-3">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
-                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal();">Aceptar</button>`;
-            cerrarModal();
-            abrirModal2();
-        } else {
-            let o = {
-                idCliente: idUsuario,
-                nombre: carrito[0].empresa,
-                estado: 'disponible',
-                cliente: {
-                    nombre: nombreCliente,
-                    correo: txtcorreo,
-                    celular: txtcelular
-                },
-                envio: {
-                    productos: carrito,
-                    direccion: txtdireccion,
-                    empresa: carrito[0].empresa,
-                    subtotal: subtotal,
-                    total: total,
-                    coordenadas: {
-                        longitud: longitud,
-                        latitud: latitud
-                    },
-                    estado: null,
-                    isv: isv,
-                    comisionMotorista: subtotal * 0.1,
-                    comisionAdministrador: subtotal * 0.05
-                },
-                motorista: null
-            }
-
-            finalizarCompra(o);
-        }
+                <h6 class="subtitulo-modal">Esta acción no se puede revertir.</h6>
+                <div class="botones-modal mt-4 mb-3">
+                    <button class="boton boton-blanco borde-rojo" onclick="cerrarModal2(); abrirModal();">Cerrar</button>
+                    <button class="boton boton-blanco borde-verde" onclick="finalizarCompra();">Aceptar</button>
+                </div>`;
     }
+    cerrarModal();
+    abrirModal2();
 }
 
-function finalizarCompra(o) {
+
+function finalizarCompra() {
+    let txtcelular = document.getElementById('text-celular').value;
+    let txtcorreo = document.getElementById('text-correo').value;
+    let txtdireccion = document.getElementById('textDireccion').value;
+    let longitud = document.getElementById('longitud').value;
+    let latitud = document.getElementById('latitud').value;
+
+    let o = {
+        idCliente: idUsuario,
+        nombre: carrito[0].empresa,
+        estado: 'disponible',
+        cliente: {
+            nombre: nombreCliente,
+            correo: txtcorreo,
+            celular: txtcelular
+        },
+        envio: {
+            productos: carrito,
+            direccion: txtdireccion,
+            empresa: carrito[0].empresa,
+            subtotal: subtotal,
+            total: total,
+            coordenadas: {
+                longitud: longitud,
+                latitud: latitud
+            },
+            estado: null,
+            isv: isv,
+            comisionMotorista: subtotal * 0.1,
+            comisionAdministrador: subtotal * 0.05
+        },
+        motorista: null
+    }
 
     axios({
         method: 'POST',
@@ -427,7 +476,6 @@ function finalizarCompra(o) {
         data: o
     })
         .then(res => {
-            cerrarModal();
 
             modalBodyCliente.parentNode.classList.remove('borde-naranja');
             modalBodyCliente.parentNode.classList.add('borde-verde');
@@ -437,16 +485,15 @@ function finalizarCompra(o) {
                 <div class="check my-3">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-                <h6 class="subtitulo-modal">${res.data}</h6>
+                <h6 class="subtitulo-modal">${res.data.mensaje}</h6>
                 <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal();">Aceptar</button>`;
 
-            setTimeout(abrirModal, 500);
             carrito.length = 0;
             carritoActualizar();
+
+            cerrarModal2();
+            abrirModal();
         })
-        .catch(error => {
-            console.log(error);
-        });
 }
 
 function irAtras() {
@@ -484,7 +531,6 @@ function OrdenesPendientes() {
         url: `http://localhost:4200/ordenes/pendientes/${idUsuario}`
     })
         .then(res => {
-            console.log(res.data);
             if (res.data.length == 0) {
                 modalBodyCliente.innerHTML =
                     `<h5 class="titulo-modal my-3">Ordenes pendientes</h5>
@@ -524,9 +570,6 @@ function OrdenesPendientes() {
                     </div>`;
             }
             abrirModal();
-        })
-        .catch(error => {
-            console.log('error para pendientes', error);
         })
 }
 

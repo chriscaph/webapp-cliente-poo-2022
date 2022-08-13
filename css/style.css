@@ -240,6 +240,11 @@ label {
     color: #BD2024;
 }
 
+.advertencia {
+    font-size: 50px;
+    color: #FDE74C;
+}
+
 #cantidadProductos {
     width: 100px;
     border-radius: 5px;

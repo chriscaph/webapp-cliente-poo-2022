@@ -1,0 +1,15 @@
+{
+    "name": "Guacamaya Express Delivery",
+    "short_name": "GE Delivey",
+    "theme_color": "#5bc0eb",
+    "background_color": "#e55934",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "./cliente.html",
+    "start_url": "./cliente.html",
+    "icons": [{
+        "src": "./img/logo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }]
+  }

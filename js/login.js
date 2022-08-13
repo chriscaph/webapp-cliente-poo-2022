@@ -22,7 +22,6 @@ function validarFormulario1() {
             data: usuario
         })
             .then(res => {
-                console.log(res.data);
                 if (res.data.codigo == 0) {
                     modalBodySesion.innerHTML =
                         `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
@@ -36,7 +35,6 @@ function validarFormulario1() {
                 }
                 
             })
-            .catch(error => console.log('error', error));
     }
 }
 
@@ -93,7 +91,6 @@ function validarFormulario2() {
                 }
                 abrirModal();
             })
-            .catch(error => console.log('Error, registro', error));
     }
 }
 
