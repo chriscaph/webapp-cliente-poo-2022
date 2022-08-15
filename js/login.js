@@ -1,7 +1,3 @@
-sectionLogin = document.getElementById('section-login');
-sectionRegistration = document.getElementById('section-registration');
-modalBodySesion = document.getElementById('modal-body-sesion');
-
 function validarFormulario1() {
     let txtusuario = document.getElementById('txtusuario-login');
     let txtpassword = document.getElementById('txtpassword-login');
@@ -101,3 +97,8 @@ function abrirModal() {
 function cerrarModal() {
     $('#modal').modal('hide');
 }
+
+//##############################################################
+sectionLogin = document.getElementById('section-login');
+sectionRegistration = document.getElementById('section-registration');
+modalBodySesion = document.getElementById('modal-body-sesion');

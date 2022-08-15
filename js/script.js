@@ -1,38 +1,3 @@
-var sectionCategorias = document.getElementById('section-categorias');
-var sectionEmpresas = document.getElementById('section-empresas');
-var sectionProductos = document.getElementById('section-productos');
-var modalBodyCliente = document.getElementById('modal-body-cliente');
-var modalBodyCliente2 = document.getElementById('modal-body-cliente2');
-var divContador = document.getElementById('contador');
-var categoriaActual;
-var empresaActual;
-var productoActual;
-var subtotal = 0;
-var isv = 0;
-var comisiones = 0;
-var total = 0;
-var carrito = [];
-var contador = 0;
-var emp;
-var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-
-var nombreCliente = obtenerParametro('nom');
-var idSession = obtenerParametro('ses');
-var idUsuario = obtenerParametro('id');
-
-
-
-if (idSession.length == 0) {
-    idSession = '1';
-    idUsuario = '1';
-} else {
-    carritoObtener();
-}
-
-var categorias = [];
-var empresas = [];
-var productos = [];
-
 function generarCategorias() {
 
     axios({
@@ -221,6 +186,12 @@ function agregarAlCarrito() {
                     divContador.innerHTML = contador;
 
                     carritoActualizar();
+
+                    axios({
+                        method: 'PUT',
+                        url: `http://localhost:4200/productos/cantidad/${productoActual._id}`,
+                        data: {cantidad: Number(spinCantidad.value)}
+                    })
                 
                     cerrarModal();
                 }
@@ -312,11 +283,18 @@ function renderizarCarrito() {
 }
 
 function eliminarDelCarrito(indice) {
-    carrito.splice(indice, 1);
-    carritoActualizar();
-    contador = carrito.length;
-    divContador.innerHTML = contador;
-    renderizarCarrito();
+    axios({
+        method: 'PUT',
+        url: `http://localhost:4200/productos/cantidad/${carrito[indice].codigo}`,
+        data: {cantidad: -carrito[indice].cantidad}
+    })
+        .then(() => {
+            carrito.splice(indice, 1);
+            carritoActualizar();
+            contador = carrito.length;
+            divContador.innerHTML = contador;
+            renderizarCarrito();
+        })
 }
 
 function comprar() {
@@ -736,5 +714,42 @@ function verificarCambioPassword() {
         }
     }
 }
+
+
+//############################################
+var sectionCategorias = document.getElementById('section-categorias');
+var sectionEmpresas = document.getElementById('section-empresas');
+var sectionProductos = document.getElementById('section-productos');
+var modalBodyCliente = document.getElementById('modal-body-cliente');
+var modalBodyCliente2 = document.getElementById('modal-body-cliente2');
+var divContador = document.getElementById('contador');
+var categoriaActual;
+var empresaActual;
+var productoActual;
+var subtotal = 0;
+var isv = 0;
+var comisiones = 0;
+var total = 0;
+var carrito = [];
+var contador = 0;
+var emp;
+var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+var nombreCliente = obtenerParametro('nom');
+var idSession = obtenerParametro('ses');
+var idUsuario = obtenerParametro('id');
+
+
+
+if (idSession.length == 0) {
+    idSession = '1';
+    idUsuario = '1';
+} else {
+    carritoObtener();
+}
+
+var categorias = [];
+var empresas = [];
+var productos = [];
 
 generarCategorias();
