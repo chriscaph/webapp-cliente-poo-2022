@@ -365,8 +365,6 @@ function validarFormulario() {
     let txtnombre = document.getElementById('text-nombre').value;
     let txtexpiracion = document.getElementById('text-expiracion').value;
     let txtcvc = document.getElementById('text-cvc').value;
-    let longitud = document.getElementById('longitud').value;
-    let latitud = document.getElementById('latitud').value;
 
     let expTelefono = /^\d{4}-\d{4}$/
     let expSeguridad = /^\d{3}$/
@@ -571,6 +569,172 @@ function OrdenesPendientes() {
             }
             abrirModal();
         })
+}
+
+function editUser() {
+    modalBodyCliente.innerHTML = 
+        `<div class="row my-4 mx-2">
+            <h4 class="col-12 text-center titulo-modal mb-4">¿Qué quieres cambiar?</h4>
+            <button class="boton boton-verde col-12" style="height: 50px;" onclick="editarUsuario();">Cambiar usuario</button>
+            <button class="boton boton-naranja col-12" style="height: 50px;" onclick="editarPassword();">Cambiar contraseña</button>
+        </div>`;
+    abrirModal();
+}
+
+function editarUsuario() {
+    modalBodyCliente.innerHTML = 
+        `<h4 class="text-center titulo-modal mt-4">Editar usuario</h4>
+        <div>
+            <h5 class="mt-3 text-left">Usuario actual:</h5>
+            <input type="text" class="form-control borde-naranja" id="txtusuarioActual" required>
+        </div>
+        <div>
+            <h5 class="mt-3 text-left">Nuevo usuario:</h5>
+            <input type="text" class="form-control borde-naranja" id="txtusuarioNuevo" required>
+        </div>
+        <div>
+            <h5 class="mt-3 text-left">Escribe tu contraseña:</h5>
+            <input type="password" class="form-control borde-naranja" id="txtpassword" required>
+        </div>
+        <div class="text-center mb-4">
+            <button class="boton boton-verde mt-3" onclick="verificarCambioUsuario();">Aceptar</button>
+            <button class="boton boton-blanco mt-3" onclick="cerrarModal();">Cancelar</button>
+        </div>`;
+}
+
+function editarPassword() {
+    modalBodyCliente.innerHTML = 
+        `<h4 class="text-center titulo-modal mt-4">Editar contraseña</h4>
+        <div>
+            <h5 class="mt-3 text-left">Usuario:</h5>
+            <input type="text" class="form-control borde-naranja" id="txtusuarioActual" required>
+        </div>
+        <div>
+            <h5 class="mt-3 text-left">Contraseña actual:</h5>
+            <input type="password" class="form-control borde-naranja" id="txtpasswordActual" required>
+        </div>
+        <div>
+            <h5 class="mt-3 text-left">Nueva contraseña:</h5>
+            <input type="password" class="form-control borde-naranja" id="txtpasswordNuevo" required>
+        </div>
+        <div>
+            <h5 class="mt-3 text-left">Nueva contraseña (de nuevo):</h5>
+            <input type="password" class="form-control borde-naranja" id="txtpasswordNuevo2" required>
+        </div>
+        <div class="text-center mb-4">
+            <button class="boton boton-verde mt-2" onclick="verificarCambioPassword();">Aceptar</button>
+            <button class="boton boton-blanco mt-2" onclick="cerrarModal();">Cancelar</button>
+        </div>`;
+}
+
+function verificarCambioUsuario() {
+    let usuarioActual = document.getElementById('txtusuarioActual').value;
+    let nuevoUsuario = document.getElementById('txtusuarioNuevo').value;
+    let password = document.getElementById('txtpassword').value;
+
+    if (usuarioActual != '' && nuevoUsuario != '' && password != '') {
+        usuario = {
+            usuario: usuarioActual,
+            password: password,
+            tipo: 'C'
+        }
+    
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/usuarios/login/C',
+            data: usuario
+        })
+            .then(res => {
+                if (res.data.codigo == 0) {
+                    modalBodyCliente2.innerHTML =
+                        `<h5 class="titulo-modal my-4">Usuario actual o contraseña incorrectas</h5>
+                        <div class="error my-3">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal()">Aceptar</button>`;
+                    cerrarModal();
+                    abrirModal2();
+                } else {
+                    axios({
+                        method: 'PUT',
+                        url: `http://localhost:4200/usuarios/usuario/${idUsuario}`,
+                        data: {usuario: nuevoUsuario}
+                    })
+                        .then(() => {
+                            modalBodyCliente2.innerHTML =
+                                `<h5 class="titulo-modal my-4">¡Usuario actualizado!</h5>
+                                <div class="check my-3">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2();">Aceptar</button>`;
+                            cerrarModal();
+                            abrirModal2();
+                        })
+                }
+                
+            })
+    }
+}
+
+function verificarCambioPassword() {
+    let usuarioActual = document.getElementById('txtusuarioActual').value;
+    let password = document.getElementById('txtpasswordActual').value;
+    let passwordNuevo = document.getElementById('txtpasswordNuevo').value;
+    let passwordNuevo2 = document.getElementById('txtpasswordNuevo2').value;
+
+    if(usuarioActual != '' && password != '' && passwordNuevo != '' && passwordNuevo2 != '') {
+        if (passwordNuevo != passwordNuevo2) {
+            modalBodyCliente2.innerHTML =
+                `<h5 class="titulo-modal my-4">Las contraseñas no coinciden</h5>
+                <div class="error my-3">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal()">Aceptar</button>`;
+            cerrarModal();
+            abrirModal2();
+        } else {
+            usuario = {
+                usuario: usuarioActual,
+                password: password,
+                tipo: 'C'
+            }
+        
+            axios({
+                method: 'POST',
+                url: 'http://localhost:4200/usuarios/login/C',
+                data: usuario
+            })
+                .then(res => {
+                    if (res.data.codigo == 0) {
+                        modalBodyCliente2.innerHTML =
+                            `<h5 class="titulo-modal my-4">Usuario actual o contraseña incorrectas</h5>
+                            <div class="error my-3">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2(); abrirModal()">Aceptar</button>`;
+                        cerrarModal();
+                        abrirModal2();
+                    } else {
+                        axios({
+                            method: 'PUT',
+                            url: `http://localhost:4200/usuarios/password/${idUsuario}`,
+                            data: {password: passwordNuevo}
+                        })
+                            .then(() => {
+                                modalBodyCliente2.innerHTML =
+                                    `<h5 class="titulo-modal my-4">¡Contraseña actualizada!</h5>
+                                    <div class="check my-3">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </div>
+                                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2();">Aceptar</button>`;
+                                cerrarModal();
+                                abrirModal2();
+                            })
+                    }
+                    
+                })
+        }
+    }
 }
 
 generarCategorias();
